@@ -1,8 +1,23 @@
 <!DOCTYPE html>
+<!-- 
+Author: Dharmil Chhadva
+ID: C0884179
+Date: 21st July 2023
+Description: This javascript code generates a new table based on user input of
+			number of rows and columns. It also allows the user to add rows and columns once
+			the initial table is generated.
+-->
 <html>
 
 <head>
 	<title>Final test lab</title>
+	<style>
+		.table-cell {
+			padding: 10px;
+			border: 1px solid #ccc;
+		}
+	</style>
+
 </head>
 
 <body>
@@ -16,60 +31,66 @@
 	<button id="b2" onclick="addColumn()">Add Column</button>
 	<button id="b3" onclick="addRow()">Add Row</button>
 
-	<div id="tableContainer"></div>
+	<div id="table"></div>
 
 	<script language="javascript">
 		function generateTable() {
 			var rows = parseInt(document.getElementById('t1').value);
 			var cols = parseInt(document.getElementById('t2').value);
 
-			var tableHTML = '<br><br> <table id="dataTable" border="1" style="{ border-collapse: collapse}">';
+			var tableHTML = '<br><br> <table id="generatedTable" border="1">';
 			for (var i = 0; i < rows; i++) {
 				tableHTML += '<tr>';
 				for (var j = 0; j < cols; j++) {
-					tableHTML += '<td>Row ' + (i + 1) + ' Col ' + (j + 1) + '</td>';
+					tableHTML += '<td class="table-cell">Row ' + (i + 1) + ' Col ' + (j + 1) + '</td>';
 				}
 				tableHTML += '</tr>';
 			}
 			tableHTML += '</table>';
 
-			document.getElementById('tableContainer').innerHTML = tableHTML;
+			document.getElementById('table').innerHTML = tableHTML;
+
+			var table = document.getElementById('generatedTable');
+
+			var table = document.getElementById('generatedTable');
+			table.style.borderCollapse = 'collapse';
+			table.style.width = '100%';
+			table.style.maxWidth = '800px';
+			table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
+			table.style.margin = '20px 0';
+			table.style.padding = '10px';
 
 			document.getElementById('vanish').style.display = 'none';
 
 		}
 
 		function addColumn() {
-			var table = document.getElementById('dataTable');
+			var table = document.getElementById('generatedTable');
 			var rows = table.getElementsByTagName('tr');
 
 			for (var i = 0; i < rows.length; i++) {
 				var cell = document.createElement('td');
 				cell.textContent = 'New Cell';
+				cell.classList.add('table-cell'); // Adding the CSS class to the cell
 				rows[i].appendChild(cell);
 			}
 		}
 
 		function addRow() {
-			var table = document.getElementById('dataTable');
+			var table = document.getElementById('generatedTable');
 			var newRow = document.createElement('tr');
 			var cols = table.getElementsByTagName('tr')[0].children.length;
 
 			for (var i = 0; i < cols; i++) {
 				var cell = document.createElement('td');
 				cell.textContent = 'New Cell';
+				cell.classList.add('table-cell'); // Adding the CSS class to the cell
 				newRow.appendChild(cell);
 			}
 
 			table.appendChild(newRow);
 		}
 
-		function clearInitialContent() {
-			var elementsToRemove = document.querySelectorAll('font, #t1, #t2, #b1');
-			elementsToRemove.forEach(function (element) {
-				element.style.display = 'none';
-			});
-		}
 	</script>
 </body>
 
